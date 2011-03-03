@@ -980,6 +980,7 @@ uninclusive, and the args from that keyword to the end."
    (cons (symbol-name-default-case "UNSIGNED") "UNSIGNED")
    (cons (symbol-name-default-case "ZEROFILL") "ZEROFILL")
    (cons (symbol-name-default-case "AUTO-INCREMENT") "AUTO_INCREMENT")
+   (cons (symbol-name-default-case "DEFAULT") "DEFAULT")
    (cons (symbol-name-default-case "UNIQUE") "UNIQUE")))
 
 (defmethod database-constraint-statement (constraint-list database)
@@ -999,6 +1000,9 @@ uninclusive, and the args from that keyword to the end."
                        :message (format nil "unsupported column constraint '~A'"
                                         constraint))
                 (setq string (concatenate 'string string (cdr output))))
+	    (when (equal (symbol-name (car constraint)) "DEFAULT")
+	      (setq constraint (cdr constraint))
+	      (setq string (concatenate 'string string " " (car constraint))))
             (if (< 1 (length constraint))
                 (setq string (concatenate 'string string " "))))))))
 
