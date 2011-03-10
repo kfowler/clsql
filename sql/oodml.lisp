@@ -257,7 +257,9 @@
 	(when (and (slot-exists-p slot 'db-constraints)
 	           (listp (view-class-slot-db-constraints slot))
 		   (member :default (view-class-slot-db-constraints slot)))
-	  (update-slot-from-record obj (slot-definition-name slot))))
+          (unless (and (slot-boundp obj (slot-definition-name slot))
+                       (slot-value obj (slot-definition-name slot)))
+	    (update-slot-from-record obj (slot-definition-name slot)))))
       ;;this may just be a NOP.
       (setf (slot-value obj 'view-database) database)))
 
