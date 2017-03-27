@@ -1,0 +1,29 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>WITH-DEFAULT-DATABASE</title><link rel="stylesheet" type="text/css" href="docbook.css"><meta name="generator" content="DocBook XSL Stylesheets V1.79.1"><link rel="home" href="index.html" title="CLSQL Users' Guide"><link rel="up" href="ref-connect.html" title="Connection and Initialisation"><link rel="prev" href="with-database.html" title="WITH-DATABASE"><link rel="next" href="ref-syntax.html" title="The Symbolic SQL Syntax"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">WITH-DEFAULT-DATABASE</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="with-database.html">Prev</a> </td><th width="60%" align="center">Connection and Initialisation</th><td width="20%" align="right"> <a accesskey="n" href="ref-syntax.html">Next</a></td></tr></table><hr></div><div class="refentry"><a name="with-default-database"></a><div class="titlepage"></div><div class="refnamediv"><h2>Name</h2><p>WITH-DEFAULT-DATABASE — Execute a body of code with <span class="symbol">*default-database*</span> bound to a specified database.<b>Macro</b></p></div><div class="refsect1"><a name="idp94474976"></a><h2>Syntax</h2><pre class="synopsis">
+      <code class="function">with-default-database</code> <em class="replaceable"><code>database</code></em> &amp;rest <em class="replaceable"><code>body</code></em> =&gt; <span class="returnvalue">result</span></pre></div><div class="refsect1"><a name="idp94478240"></a><h2>Arguments and Values</h2><div class="variablelist"><dl class="variablelist"><dt><span class="term"><em class="parameter"><code>database</code></em></span></dt><dd><p>An active database object. 
+            </p></dd><dt><span class="term"><em class="parameter"><code>body</code></em></span></dt><dd><p>A Lisp code body. 
+            </p></dd><dt><span class="term"><em class="parameter"><code>result</code></em></span></dt><dd><p>Determined by the result of executing the last
+            expression in <em class="parameter"><code>body</code></em>.
+            </p></dd></dl></div></div><div class="refsect1"><a name="idp94486368"></a><h2>Description</h2><p>Perform <em class="parameter"><code>body</code></em> with
+      <em class="parameter"><code>DATABASE</code></em> bound as
+      <span class="symbol">*default-database*</span>.
+      </p></div><div class="refsect1"><a name="idp94489376"></a><h2>Examples</h2><pre class="screen">
+*default-database*
+=&gt; #&lt;CLSQL-ODBC:ODBC-DATABASE new/dent OPEN {49095CAD}&gt;
+
+(let ((database (clsql:find-database ":memory:")))
+  (with-default-database (database) 
+    (database-name *default-database*)))
+=&gt; ":memory:"
+      </pre></div><div class="refsect1"><a name="idp94491088"></a><h2>Side Effects</h2><p>
+        None. 
+      </p></div><div class="refsect1"><a name="idp94492352"></a><h2>Affected by</h2><p>
+        None. 
+      </p></div><div class="refsect1"><a name="idp94493616"></a><h2>Exceptional Situations</h2><p>
+        Calls to <span class="application"><span class="emphasis"><em>CLSQL</em></span></span> functions in <em class="parameter"><code>body</code></em> may signal 
+        errors if <em class="parameter"><code>database</code></em> is not an active database 
+        object. 
+      </p></div><div class="refsect1"><a name="idp94497056"></a><h2>See Also</h2><p>
+        </p><table border="0" summary="Simple list" class="simplelist"><tr><td><a class="link" href="with-database.html" title="WITH-DATABASE"><code class="function">with-database</code></a></td></tr><tr><td><a class="link" href="default-database.html" title="*DEFAULT-DATABASE*"><span class="symbol">*default-database*</span></a></td></tr></table><p>
+      </p></div><div class="refsect1"><a name="idp94501056"></a><h2>Notes</h2><p>
+        <code class="function">with-default-database</code> is a <span class="application"><span class="emphasis"><em>CLSQL</em></span></span> extension.
+      </p></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="with-database.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ref-connect.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ref-syntax.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">WITH-DATABASE </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> The Symbolic SQL Syntax</td></tr></table></div></body></html>

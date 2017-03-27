@@ -1,0 +1,41 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>ODBC</title><link rel="stylesheet" type="text/css" href="docbook.css"><meta name="generator" content="DocBook XSL Stylesheets V1.79.1"><link rel="home" href="index.html" title="CLSQL Users' Guide"><link rel="up" href="appendix.html" title="Appendix A. Database Back-ends"><link rel="prev" href="mysql.html" title="MySQL"><link rel="next" href="aodbc.html" title="AODBC"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center"><span class="application">ODBC</span></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="mysql.html">Prev</a> </td><th width="60%" align="center">Appendix A. Database Back-ends</th><td width="20%" align="right"> <a accesskey="n" href="aodbc.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="odbc"></a><span class="application">ODBC</span></h2></div></div></div><div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp98215856"></a>Libraries</h3></div></div></div><p>
+	  The <span class="application">ODBC</span> back-end requires access to an <span class="application">ODBC</span> driver
+	  manager as well as <span class="application">ODBC</span> drivers for the underlying
+	  database server. <span class="application"><span class="emphasis"><em>CLSQL</em></span></span> has been tested with
+	  <span class="application">unixODBC</span> ODBC Driver Manager as
+	  well as Microsoft's ODBC manager.  These driver managers
+	  have been tested with the <a class="ulink" href="http://odbc.postgresql.org" target="_top">
+	  <em class="citetitle">psqlODBC</em></a> driver for
+	  <span class="application">PostgreSQL</span> and the <a class="ulink" href="http://www.mysql.com/products/connector/odbc/" target="_top">
+	  <em class="citetitle">MyODBC</em></a> driver for <span class="application">MySQL</span>.
+	</p></div><div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp97528016"></a>Initialization</h3></div></div></div><p>
+	  Use 
+	  </p><pre class="screen">
+(asdf:operate 'asdf:load-op 'clsql-odbc)
+	  </pre><p>
+	  to load the <span class="application">ODBC</span> back-end.  The database type for the <span class="application">ODBC</span>
+	  back-end is <span class="symbol">:odbc</span>.
+	</p></div><div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp97786352"></a>Connection Specification</h3></div></div></div><div class="sect3"><div class="titlepage"><div><div><h4 class="title"><a name="idp97515488"></a>Syntax of connection-spec</h4></div></div></div><pre class="synopsis">(<em class="replaceable"><code>dsn</code></em> <em class="replaceable"><code>user</code></em> <em class="replaceable"><code>password</code></em> &amp;key <em class="replaceable"><code>connection-string</code></em>)</pre></div><div class="sect3"><div class="titlepage"><div><div><h4 class="title"><a name="idp98117168"></a>Description of connection-spec</h4></div></div></div><div class="variablelist"><dl class="variablelist"><dt><span class="term"><em class="parameter"><code>dsn</code></em></span></dt><dd><p>String representing the ODBC data source name.</p></dd><dt><span class="term"><em class="parameter"><code>user</code></em></span></dt><dd><p>String representing the user name to use for
+		  authentication.</p></dd><dt><span class="term"><em class="parameter"><code>password</code></em></span></dt><dd><p>String representing the unencrypted password to
+		  use for authentication.</p></dd><dt><span class="term"><em class="parameter"><code>connection-string</code></em></span></dt><dd><p>Raw connection string passed to the underlying
+		ODBC driver. Allows bypassing creating a DSN on the
+		server.</p></dd></dl></div></div></div><div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp97400992"></a>Notes</h3></div></div></div><div class="sect3"><div class="titlepage"><div><div><h4 class="title"><a name="idp97368384"></a>FDDL</h4></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: opencircle; "><li class="listitem" style="list-style-type: circle"><p>
+            The <span class="symbol">:owner</span> keyword argument to the FDDL functions 
+            for listing and testing for database objects is ignored. 
+          </p></li></ul></div></div></div><div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp98131360"></a>Connect Examples</h3></div></div></div><pre class="screen">
+
+;; assumes a "mssql" DSN is configured on the lisp host, specifying database server
+;;  and database name.
+&gt; (clsql:connect '("mssql" "database-user" "database-password") 
+               :database-type :odbc)
+=&gt; #&lt;CLSQL-ODBC:ODBC-DATABASE mssql/database-user OPEN {100756D123}&gt;
+
+;; no DSN on the lisp host, specify connection information via :connection-string
+&gt; (clsql:connect '("friendly-server-name" "friendly-username" "" 
+		 :connection-string "DRIVER={FreeTDS};SERVER=mssql-server;DATABASE=database-name;UID=database-user;PWD=database-password;PORT=1433;TDS_Version=8.0;APP=clsql") 
+               :database-type :odbc)
+=&gt; #&lt;CLSQL-ODBC:ODBC-DATABASE friendly-server-name/friendly-username OPEN {100756D123}&gt;</pre><p>
+          The <span class="symbol">friendly-server-name</span>
+          and <span class="symbol">friendly-username</span> are only used when
+          printing the connection object to a stream.
+        </p></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="mysql.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="appendix.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="aodbc.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">MySQL </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> <span class="application">AODBC</span></td></tr></table></div></body></html>
