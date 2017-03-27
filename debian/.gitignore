@@ -1,8 +1,0 @@
-cl-sql
-cl-sql-base
-cl-sql-mysql
-cl-sql-postgresql
-cl-sql-postgresql-socket
-files
-*.debhelper
-
