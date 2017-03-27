@@ -31,10 +31,10 @@
     <!-- To resolve short stylesheet references -->
     <uri
         name="docbook_html.xsl"
-        uri="Cellar/docbook-xsl/1.79.1/docbook-xsl/html/docbook.xsl" />
+        uri="Cellar/docbook-xsl/1.79.1/docbook-xsl/xhtml5/docbook.xsl" />
     <uri
         name="docbook_chunk.xsl"
-        uri="Cellar/docbook-xsl/1.79.1/docbook-xsl/html/chunk.xsl" />
+        uri="Cellar/docbook-xsl/1.79.1/docbook-xsl/xhtml5/chunk.xsl" />
     <uri
         name="docbook_fo.xsl"
         uri="Cellar/docbook-xsl/1.79.1/docbook-xsl/fo/docbook.xsl" />

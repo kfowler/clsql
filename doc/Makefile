@@ -103,6 +103,7 @@ html.tar.gz: $(DOCFILES) Makefile
 	@rm -rf html
 	@mkdir html
 	@XML_CATALOG_FILES="$(CATALOG)" $(XSLTPROC) --stringparam chunker.output.encoding UTF-8 \
+		 --param custom.css.source "'docbook.css.xml'" \
 		 --xinclude --output html/ html_chunk.xsl $(DOCFILE)
 	@GZIP='-9' tar czf html.tar.gz html
 
