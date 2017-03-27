@@ -1,7 +1,7 @@
 #!/usr/bin/make
 ###############################################################################
 # FILE IDENTIFICATION
-# 
+#
 #  Name:         Makefile
 #  Purpose:      Makefile for the clsql documentation
 #  Programer:    Kevin M. Rosenberg
@@ -37,20 +37,20 @@ else
   else
     ifneq (${SUSE},0)
       OS=suse
-    else   
+    else
       ifneq (${REDHAT},0)
         OS=redhat
-      else   
+      else
         ifneq (${MANDRAKE},0)
           OS=mandrake
-	else   
+	else
           ifneq (${DARWIN},0)
             OS=darwin
 	  else
 	    ifneq (${UBUNTU},0)
 		OS:=debian
 	    endif
-	  endif 
+	  endif
         endif
       endif
     endif
@@ -83,7 +83,7 @@ CATALOG:=`pwd`/catalog-${OS}.xml
 CHECK:=XML_CATALOG_FILES="$(CATALOG)" xmllint --noout --xinclude --postvalid $(DOCFILE) || exit 1
 
 .PHONY: all
-all: html pdf 
+all: html pdf
 
 .PHONY: dist
 dist: html pdf
@@ -99,17 +99,17 @@ check:
 .PHONY: html
 html: html.tar.gz
 
-html.tar.gz: $(DOCFILES) Makefile 
+html.tar.gz: $(DOCFILES) Makefile
 	@rm -rf html
 	@mkdir html
 	@XML_CATALOG_FILES="$(CATALOG)" $(XSLTPROC) --stringparam chunker.output.encoding UTF-8 \
 		 --xinclude --output html/ html_chunk.xsl $(DOCFILE)
-	@GZIP='-9' tar czf html.tar.gz html 
+	@GZIP='-9' tar czf html.tar.gz html
 
 .PHONY: fo
 fo: ${FOFILE}
 
-${FOFILE}: $(DOCFILES) Makefile 
+${FOFILE}: $(DOCFILES) Makefile
 	@XML_CATALOG_FILES="$(CATALOG)" xsltproc --xinclude --stringparam fop1.extensions 1 --output $(FOFILE) fo.xsl $(DOCFILE)
 
 .PHONY: pdf
@@ -138,7 +138,7 @@ ${TXTFILE}: ${FOFILE}
 	lynx -dump ${HTMLFILE} > ${TXTFILE}
 
 .PHONY: clean
-clean: 
+clean:
 	@rm -f *~ *.bak *.orig \#*\# .\#* texput.log
 	@rm -rf html ${PSFILE} ${HTMLFILE}
 	@rm -f ${TMPFILES} ${FOFILE}
